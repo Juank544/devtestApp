@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,28 +26,20 @@ public class EmployeeController {
 
     @GetMapping
     public ResponseEntity<List<Employee>> getEmployees() {
-        try {
-            Optional<DummyDTO> optional = dataService.getEmployees();
-            if (optional.isPresent()) {
-                List<Employee> list = (List<Employee>) optional.get().data();
-                return new ResponseEntity<>(list, HttpStatus.OK);
-            } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (HttpStatusCodeException e) {
-            return new ResponseEntity<>(e.getStatusCode());
-        }
+        Optional<DummyDTO> optional = dataService.getEmployees();
+        if (optional.isPresent()) {
+            List<Employee> list = (List<Employee>) optional.get().data();
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
-        try {
-            Optional<DummyDTO> optional = dataService.getEmployeeById(id);
-            if (optional.isPresent()) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                Employee employee = objectMapper.convertValue(optional.get().data(), new TypeReference<>(){});
-                return new ResponseEntity<>(employee, HttpStatus.OK);
-            } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (HttpStatusCodeException e) {
-            return new ResponseEntity<>(e.getStatusCode());
-        }
+        Optional<DummyDTO> optional = dataService.getEmployeeById(id);
+        if (optional.isPresent()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Employee employee = objectMapper.convertValue(optional.get().data(), new TypeReference<>(){});
+            return new ResponseEntity<>(employee, HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
