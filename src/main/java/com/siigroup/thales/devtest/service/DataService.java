@@ -17,11 +17,13 @@ public class DataService {
         this.restTemplate = restTemplate;
     }
 
-    public Optional<DummyDTO> getEmployees() throws HttpStatusCodeException {
-        return Optional.ofNullable(restTemplate.getForObject(apiUrl + "/employees", DummyDTO.class));
+    public DummyDTO getEmployees() throws HttpStatusCodeException {
+        Optional<DummyDTO> optional = Optional.ofNullable(restTemplate.getForObject(apiUrl + "/employees", DummyDTO.class));
+        return optional.orElseThrow();
     }
 
-    public Optional<DummyDTO> getEmployeeById(Integer id) throws HttpStatusCodeException {
-        return Optional.ofNullable(restTemplate.getForObject(apiUrl + "/employee/" + id, DummyDTO.class));
+    public DummyDTO getEmployeeById(Integer id) throws HttpStatusCodeException {
+        Optional<DummyDTO> optional = Optional.ofNullable(restTemplate.getForObject(apiUrl + "/employee/" + id, DummyDTO.class));
+        return optional.orElseThrow();
     }
 }

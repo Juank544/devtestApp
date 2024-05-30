@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import java.util.NoSuchElementException;
+
 @RestControllerAdvice
 public class ExceptionHandlerController {
 
@@ -16,5 +18,11 @@ public class ExceptionHandlerController {
     public ResponseEntity<String> httpStatusCodeException(HttpStatusCodeException ex){
         logger.error(ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), ex.getStatusCode());
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> noSuchElementException(NoSuchElementException ex){
+        logger.error(ex.getMessage());
+        return ResponseEntity.internalServerError().body(ex.getMessage());
     }
 }

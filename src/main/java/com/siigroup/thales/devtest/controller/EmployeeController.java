@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/employee", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,20 +25,15 @@ public class EmployeeController {
 
     @GetMapping
     public ResponseEntity<List<Employee>> getEmployees() {
-        Optional<DummyDTO> optional = dataService.getEmployees();
-        if (optional.isPresent()) {
-            List<Employee> list = (List<Employee>) optional.get().data();
-            return new ResponseEntity<>(list, HttpStatus.OK);
-        } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        List<Employee> employees = (List<Employee>) dataService.getEmployees().data();
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
-        Optional<DummyDTO> optional = dataService.getEmployeeById(id);
-        if (optional.isPresent()) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Employee employee = objectMapper.convertValue(optional.get().data(), new TypeReference<>(){});
-            return new ResponseEntity<>(employee, HttpStatus.OK);
-        } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        DummyDTO dummy = dataService.getEmployeeById(id);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Employee employee = objectMapper.convertValue(dummy.data(), new TypeReference<>() {});
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 }
