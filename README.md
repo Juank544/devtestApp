@@ -5,3 +5,11 @@ The backend was developed using object-oriented programming following good desig
 
 The frontend was based on Bootstrap, importing the common js and css files to get a simple but friendly interface easy to use, it provides 3 views, the index, the table, and one for the errors, it comes along Thymeleaf, used to populate the fields with the data fetched from the backend.
 
+## SetUp
+
+1. Run the WAR task of Gradle
+2. Pull the latest image of tomcat
+3. Create a Docker configuration
+   4. bind the ports beetween the container and the host
+   5. mount the war volume to initialize the container
+6. Enjoy! 
