@@ -1,13 +1,21 @@
 package com.siigroup.thales.devtest.service;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+
+import static org.mockito.MockitoAnnotations.openMocks;
 
 class BusinessServiceTest {
 
     @InjectMocks
     private BusinessService businessService;
+
+    @BeforeEach
+    void setUp(){
+        openMocks(this);
+    }
 
     @Test
     void calculateAnnualSalary() {
