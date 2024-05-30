@@ -1,6 +1,6 @@
 package com.siigroup.thales.devtest.controller;
 
-import com.siigroup.thales.devtest.model.entity.Employee;
+import com.siigroup.thales.devtest.model.dto.EmployeeDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,15 +26,15 @@ public class ViewController {
 
     @GetMapping("/table")
     public String table(Model model) {
-        List<Employee> results = employeeController.getEmployees().getBody();
+        List<EmployeeDTO> results = employeeController.getEmployees().getBody();
         model.addAttribute("results", results);
         return "table";
     }
 
     @PostMapping("/submit")
-    public String submitForm(@RequestParam Integer id, Model model) {
+    public String submitForm(@RequestParam(required = false) Integer id, Model model) {
         if (!Objects.isNull(id)) {
-            List<Employee> results = Collections.singletonList(employeeController.getEmployeeById(id).getBody());
+            List<EmployeeDTO> results = Collections.singletonList(employeeController.getEmployeeById(id).getBody());
             model.addAttribute("results", results);
         }
         return "table";
