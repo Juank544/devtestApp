@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusinessService {
 
-    public Integer calculateAnualSalary(Integer salary) {
+    public Integer calculateAnnualSalary(Integer salary) {
         return salary * 12;
     }
 }

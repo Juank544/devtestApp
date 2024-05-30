@@ -44,6 +44,6 @@ public class EmployeeController {
     private EmployeeDTO buildEmployeeDTO(Employee employee){
         return new EmployeeDTO(employee.getId(), employee.getEmployee_name(), employee.getEmployee_salary(),
                 employee.getEmployee_age(), employee.getProfile_image(),
-                businessService.calculateAnualSalary(employee.getEmployee_salary()));
+                businessService.calculateAnnualSalary(employee.getEmployee_salary()));
     }
 }
