@@ -7,9 +7,17 @@ The frontend was based on Bootstrap, importing the common js and css files to ge
 
 ## SetUp
 
-1. Run the WAR task of Gradle
-2. Pull the latest image of tomcat
-3. Create a Docker configuration
-   4. bind the ports beetween the container and the host
-   5. mount the war volume to initialize the container
-6. Enjoy! 
+1. Run the **build** task of Gradle to assemble a WAR executable that will be load to a container:
+
+   `./gradlew build`
+
+2. Using the Dockerfile build the image of the app:
+   
+   `docker build -t idevtest .`
+
+3. Run a container using the image that was created previously, the backend won't work without an environment variable (hardcode anti-pattern):
+   
+   `docker run --name cdevtest -p 8080:8080 --env API_KEY=http://dummy.restapiexample.com/api/v1 idevtest`
+
+4. Go to http://localhost:8080
+5. Enjoy!

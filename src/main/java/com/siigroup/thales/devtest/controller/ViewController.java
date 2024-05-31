@@ -20,7 +20,7 @@ public class ViewController {
     private EmployeeController employeeController;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index() {
         return "index";
     }
 
@@ -33,10 +33,13 @@ public class ViewController {
 
     @PostMapping("/submit")
     public String submitForm(@RequestParam(required = false) Integer id, Model model) {
-        if (!Objects.isNull(id)) {
-            List<EmployeeDTO> results = Collections.singletonList(employeeController.getEmployeeById(id).getBody());
-            model.addAttribute("results", results);
+        List<EmployeeDTO> results;
+        if (Objects.isNull(id)){
+            results = employeeController.getEmployees().getBody();
+        } else {
+            results = Collections.singletonList(employeeController.getEmployeeById(id).getBody());
         }
+        model.addAttribute("results", results);
         return "table";
     }
 
